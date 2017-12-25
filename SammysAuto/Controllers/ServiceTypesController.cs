@@ -88,7 +88,7 @@ namespace SammysAuto.Controllers
                 _db.Update(serviceType);
                 await _db.SaveChangesAsync();
 
-                RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
             }
             return View(serviceType);
         }
