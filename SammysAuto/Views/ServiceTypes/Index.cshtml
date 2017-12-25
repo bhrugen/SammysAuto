@@ -1,0 +1,38 @@
+﻿@model IEnumerable<SammysAuto.Models.ServiceType>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h2>Manage Service Types</h2>
+<hr />
+
+<div class="form-border">
+    <p>
+        <a class="btn btn-sm btn-primary" asp-action="Create">Create New</a>
+    </p>
+    <br />
+
+    <table class="table table-hover table-condensed">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m=>m.Name)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        { 
+            <tr>
+                <td>
+                    @Html.DisplayFor(m=>item.Name)
+                </td>
+                <td>
+                    EDIT | DELETE | DETAILS
+                </td>
+            </tr>
+
+        }
+    </table>
+</div>
+
