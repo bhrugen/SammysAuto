@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SammysAuto.Data;
 using SammysAuto.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SammysAuto.Controllers
 {
@@ -44,7 +45,22 @@ namespace SammysAuto.Controllers
             return View(serviceType);
         }
 
+        //Details : ServiceTypes/Details/1
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var book = await _db.ServiceTypes.SingleOrDefaultAsync(m => m.Id == id);
 
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return View(book);
+        }
 
         protected override void Dispose(bool disposing)
         {

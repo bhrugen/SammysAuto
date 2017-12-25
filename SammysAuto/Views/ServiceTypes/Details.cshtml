@@ -1,0 +1,30 @@
+﻿@model SammysAuto.Models.ServiceType  
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<br />
+<h2>Servie Type Details</h2>
+<hr />
+
+    <div class="form-border">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-1">
+                    <label asp-for="Name" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="Name" disabled class="form-control" />
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Edit</a>
+            <a asp-action="Index" class="btn btn-sm btn-success">Back to List</a>
+        </div>
+    </div>
+
+
