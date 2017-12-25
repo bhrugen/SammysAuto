@@ -52,14 +52,12 @@ namespace SammysAuto.Controllers
             {
                 return NotFound();
             }
-            var book = await _db.ServiceTypes.SingleOrDefaultAsync(m => m.Id == id);
-
-            if (book == null)
+            var serviceType = await _db.ServiceTypes.SingleOrDefaultAsync(m => m.Id == id);
+            if (serviceType == null)
             {
                 return NotFound();
             }
-
-            return View(book);
+            return View(serviceType);
         }
 
         protected override void Dispose(bool disposing)
