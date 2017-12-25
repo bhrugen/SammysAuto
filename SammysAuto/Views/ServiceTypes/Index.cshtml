@@ -28,7 +28,7 @@
                     @Html.DisplayFor(m=>item.Name)
                 </td>
                 <td>
-                    EDIT | DELETE | DETAILS
+                    @Html.Partial("_TableButtonPartial", new IndividualButtonPartial { ServiceId = item.Id})
                 </td>
             </tr>
 
