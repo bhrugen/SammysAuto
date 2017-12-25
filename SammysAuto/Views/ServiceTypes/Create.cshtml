@@ -1,0 +1,32 @@
+﻿@model SammysAuto.Models.ServiceType
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br />
+<h2>Add Servie Type</h2>
+<hr />
+
+<form asp-action="Create">
+    <div class="form-border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-1">
+                    <label asp-for="Name" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="Name" class="form-control" />
+                </div>
+            </div>
+
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-sm btn-primary" />
+            <a asp-action="Index" class="btn btn-sm btn-success">Back to List</a>
+        </div>
+    </div>
+</form>
+
