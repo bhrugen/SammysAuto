@@ -17,9 +17,23 @@ namespace SammysAuto.Controllers
             _db = db;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int carId)
         {
-            return View();
+            var car = _db.Cars.FirstOrDefault(c => c.Id == carId);
+            var model = new CarAndServicesViewModel
+            {
+                carId = car.Id,
+                Make = car.Make,
+                Model = car.Model,
+                Style = car.Style,
+                VIN = car.VIN,
+                Year = car.Year,
+                UserId = car.UserId,
+                ServiceTypesObj = _db.ServiceTypes.ToList(),
+                PastServicesObj = _db.Services.Where(s => s.CarId == carId).OrderByDescending(s => s.DateAdded)
+            };
+
+            return View(model);
         }
 
         //GET : Services/Create
