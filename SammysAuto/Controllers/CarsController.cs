@@ -85,6 +85,84 @@ namespace SammysAuto.Controllers
             return View(car);
         }
 
+        //EDIT GET
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var car = await _db.Cars
+                .Include(c => c.ApplicationUser)
+                .SingleOrDefaultAsync(m => m.Id == id);
+
+            if (car == null)
+            {
+                NotFound();
+            }
+
+            return View(car);
+        }
+
+        //EDIT POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, Car car)
+        {
+            if (id != car.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                _db.Update(car);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index), new { userId = car.UserId });
+            }
+
+            return View(car);
+        }
+
+
+
+        //Delete GET
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var car = await _db.Cars
+                .Include(c => c.ApplicationUser)
+                .SingleOrDefaultAsync(m => m.Id == id);
+
+            if (car == null)
+            {
+                NotFound();
+            }
+
+            return View(car);
+        }
+
+
+        //Delete POST
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var car = await _db.Cars.SingleOrDefaultAsync(c => c.Id == id);
+            if (car == null)
+            {
+                return NotFound();
+            }
+            _db.Cars.Remove(car);
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index), new { userId = car.UserId });
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
