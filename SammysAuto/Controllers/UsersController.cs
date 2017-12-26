@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SammysAuto.Data;
+using SammysAuto.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SammysAuto.Controllers
 {
@@ -41,6 +43,22 @@ namespace SammysAuto.Controllers
             }
             return View(users);
         }
+
+        // GET Details
+        public async Task<IActionResult> Details(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            ApplicationUser user = await _db.Users.SingleOrDefaultAsync(u => u.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+
 
         protected override void Dispose(bool disposing)
         {
