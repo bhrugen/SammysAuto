@@ -8,7 +8,8 @@
                 ButtonType="btn-primary",
                 Glyph="pencil",
                 Text = "Edit Button",
-                ServiceId=Model.ServiceId
+                ServiceId=Model.ServiceId,
+                CustomerId=Model.CustomerId
             })
 
         @Html.Partial("_IndividualButtonPartial",
@@ -18,7 +19,8 @@
                 ButtonType = "btn-success",
                 Glyph = "list",
                 Text = "Details Button",
-                ServiceId = Model.ServiceId
+                ServiceId = Model.ServiceId,
+                CustomerId = Model.CustomerId
             })
 
         @Html.Partial("_IndividualButtonPartial",
@@ -28,7 +30,8 @@
                 ButtonType = "btn-danger",
                 Glyph = "trash",
                 Text = "Delete Button",
-                ServiceId = Model.ServiceId
+                ServiceId = Model.ServiceId,
+                CustomerId = Model.CustomerId
             })
     </div>
 </td>
