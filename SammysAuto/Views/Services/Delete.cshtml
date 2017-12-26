@@ -1,0 +1,56 @@
+﻿@model SammysAuto.Models.Service
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<br />
+<h2>Delete Servie Type</h2>
+<hr />
+
+<form asp-action="Delete">
+    <div class="form-border">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="CarId" />
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-1">
+                    <label asp-for="Miles" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="Miles" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-1">
+                    <label asp-for="ServiceType.Name" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="ServiceType.Name" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-1">
+                    <label asp-for="Details" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="Details" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-1">
+                    <label asp-for="Price" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="Price" disabled class="form-control" />
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Delete" class="btn btn-sm btn-danger" />
+            <a asp-action="Create" asp-route-carId="@Model.CarId" class="btn btn-sm btn-success">Back to List</a>
+        </div>
+    </div>
+</form>
+
