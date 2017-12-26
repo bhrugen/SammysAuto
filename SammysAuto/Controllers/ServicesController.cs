@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SammysAuto.Data;
 using SammysAuto.ViewModel;
+using Microsoft.EntityFrameworkCore;
+using SammysAuto.Models;
 
 namespace SammysAuto.Controllers
 {
@@ -83,6 +85,43 @@ namespace SammysAuto.Controllers
                 PastServicesObj = _db.Services.Where(s => s.CarId == model.carId).OrderByDescending(s => s.DateAdded).Take(5)
             };
             return View(newModel);
+        }
+
+        //DELETE GET
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var service = await _db.Services.Include(s => s.Car).Include(s => s.ServiceType)
+                .SingleOrDefaultAsync(m => m.Id == id);
+
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            return View(service);
+        }
+
+
+        //POST Delete
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(Service model)
+        {
+            var serviceId = model.Id;
+            var carId = model.CarId;
+            var service = await _db.Services.SingleOrDefaultAsync(m => m.Id == serviceId);
+            if (service == null)
+            {
+                return NotFound();
+            }
+            _db.Services.Remove(service);
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Create), new { carId = carId });
         }
 
         protected override void Dispose(bool disposing)
