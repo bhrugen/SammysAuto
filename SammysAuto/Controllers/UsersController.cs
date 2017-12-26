@@ -59,6 +59,78 @@ namespace SammysAuto.Controllers
             return View(user);
         }
 
+        // GET Edit
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            ApplicationUser user = await _db.Users.SingleOrDefaultAsync(u => u.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+
+        //POST Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(ApplicationUser user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Edit", user);
+            }
+            else
+            {
+                var userInDb = await _db.Users.SingleOrDefaultAsync(u => u.Id == user.Id);
+                if (userInDb == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    userInDb.FirstName = user.FirstName;
+                    userInDb.LastName = user.LastName;
+                    userInDb.PhoneNumber = user.PhoneNumber;
+                    userInDb.Address = user.Address;
+                    userInDb.City = user.City;
+                    userInDb.PostalCode= user.PostalCode;
+
+                    await _db.SaveChangesAsync();
+                    return RedirectToAction("Index", "User");
+                }
+            }
+        }
+
+        // GET Delete
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            ApplicationUser user = await _db.Users.SingleOrDefaultAsync(u => u.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var userInDb = await _db.Users.SingleOrDefaultAsync(u => u.Id == id);
+            _db.Remove(userInDb);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
         protected override void Dispose(bool disposing)
         {
