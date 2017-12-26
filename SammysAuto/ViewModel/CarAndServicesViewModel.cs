@@ -15,7 +15,7 @@ namespace SammysAuto.ViewModel
         public string Model { get; set; }
         public string Style { get; set; }
         public int Year { get; set; }
-
+        public string UserId { get; set; }
 
         public Service NewServiceObj { get; set; }
         public IEnumerable<Service> PastServicesObj { get; set; }

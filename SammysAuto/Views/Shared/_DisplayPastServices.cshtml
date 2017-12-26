@@ -1,0 +1,62 @@
+﻿@model SammysAuto.ViewModel.CarAndServicesViewModel
+
+<div>
+    <table class="table table-condensed table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m=>m.PastServicesObj.FirstOrDefault().Miles)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.PastServicesObj.FirstOrDefault().Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.PastServicesObj.FirstOrDefault().Details)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.PastServicesObj.FirstOrDefault().DateAdded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.PastServicesObj.FirstOrDefault().ServiceType.Name)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.PastServicesObj)
+        { 
+            <tr>
+                <td>
+                    @Html.DisplayFor(m=>item.Miles)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Details)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.DateAdded)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.ServiceType.Name)
+                </td>
+                <td>
+                    @if (item.DateAdded.Date == DateTime.Now.Date)
+                    { 
+                        @Html.Partial("_IndividualButtonPartial",
+                                        new IndividualButtonPartial
+                                        { 
+                                            Action="Delete",
+                                            ButtonType="btn-danger",
+                                            Glyph="trash",
+                                            Text="Delete Button",
+                                            ServiceId=item.Id
+
+                                        })
+
+                    }
+                </td>
+            </tr>
+
+        }
+    </table>
+</div>

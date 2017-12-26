@@ -34,6 +34,7 @@ namespace SammysAuto.Controllers
                 Style=car.Style,
                 VIN=car.VIN,
                 Year=car.Year,
+                UserId=car.UserId,
                 ServiceTypesObj = _db.ServiceTypes.ToList(),
                 PastServicesObj = _db.Services.Where(s => s.CarId == carId).OrderByDescending(s => s.DateAdded).Take(5)
             };
@@ -63,6 +64,7 @@ namespace SammysAuto.Controllers
                 Style = car.Style,
                 VIN = car.VIN,
                 Year = car.Year,
+                UserId = car.UserId,
                 ServiceTypesObj = _db.ServiceTypes.ToList(),
                 PastServicesObj = _db.Services.Where(s => s.CarId == model.carId).OrderByDescending(s => s.DateAdded).Take(5)
             };
