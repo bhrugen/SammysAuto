@@ -1,0 +1,106 @@
+﻿@model SammysAuto.Models.Car
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br />
+<h2>Add New Car</h2>
+<hr />
+
+<form asp-action="Create">
+    <div class="form-border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="VIN" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="VIN" class="form-control" />
+                </div>
+            </div>
+
+            <span asp-validation-for="VIN" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="Make" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="Make" class="form-control" />
+                </div>
+            </div>
+
+            <span asp-validation-for="Make" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="Model" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="Model" class="form-control" />
+                </div>
+            </div>
+
+            <span asp-validation-for="Model" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="Style" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="Style" class="form-control" />
+                </div>
+            </div>
+
+            <span asp-validation-for="Style" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="Year" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="Year" class="form-control" />
+                </div>
+            </div>
+
+            <span asp-validation-for="Year" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="Miles" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="Miles" class="form-control" />
+                </div>
+            </div>
+
+            <span asp-validation-for="Miles" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="Color" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="Color" class="form-control" />
+                </div>
+            </div>
+
+            <span asp-validation-for="Color" class="text-danger"></span>
+        </div>
+
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Add Car" class="btn btn-sm btn-primary" />
+            <a asp-action="Index" asp-route-userId="@Model.UserId" class="btn btn-sm btn-success">Back to List</a>
+        </div>
+    </div>
+    <input asp-for="UserId" type="hidden" />
+</form>
+

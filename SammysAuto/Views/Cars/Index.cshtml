@@ -98,17 +98,17 @@ else
                     </td>
                     @if (User.IsInRole(SD.CustomerEndUser))
                     { 
-                        <td style="width:100%">
+                        <td style="width:100px">
                             <a class="btn btn-primary btn-sm" asp-controller="Services" asp-action="Index" asp-route-carId="@item.Id">
-                                <span class="glyphicon glyphicon-wrench"> &nbsp; Service History</span>
+                                <span class="glyphicon glyphicon-wrench"> </span>&nbsp; Service History
                             </a>
                         </td>
                     }
                     else
                     {
-                        <td style="width:100%">
+                        <td style="width:100px">
                             <a class="btn btn-success btn-sm" asp-controller="Services" asp-action="Index" asp-route-carId="@item.Id">
-                                <span class="glyphicon glyphicon-plus-sign"> &nbsp; New Service</span>
+                                <span class="glyphicon glyphicon-plus-sign"> </span>&nbsp; New Service
                             </a>
                         </td>
 
