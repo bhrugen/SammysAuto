@@ -1,0 +1,124 @@
+﻿@model SammysAuto.ViewModel.CarAndCustomerViewModel
+@using SammysAuto.Utility
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+<h2>Car Record for Customer</h2>
+<hr />
+<div class="row" style="padding-bottom:80px;">
+    <div class="col-sm-6" style="padding-bottom:80px;">
+        @* Add Create New Car Button *@
+        <a asp-action="Create" asp-route-userId="@Model.UserObj.Id" class="btn btn-primary" style="width:150px;">Add New Car</a>
+    </div>
+    <div class="col-sm-6">
+        @* Display User Details *@
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="UserObj.FirstName" class="control-label"></label>
+            </div>
+            <div class="col-sm-8" style="padding-bottom:5px;">
+                <input asp-for="UserObj.FirstName" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="UserObj.LastName" class="control-label"></label>
+            </div>
+            <div class="col-sm-8" style="padding-bottom:5px;">
+                <input asp-for="UserObj.LastName" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="UserObj.PhoneNumber" class="control-label"></label>
+            </div>
+            <div class="col-sm-8" style="padding-bottom:5px;">
+                <input asp-for="UserObj.PhoneNumber" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <label asp-for="UserObj.Email" class="control-label"></label>
+            </div>
+            <div class="col-sm-8" style="padding-bottom:5px;">
+                <input asp-for="UserObj.Email" disabled class="form-control" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.Cars.Count() == 0)
+{
+    <div class="text-primary form-border"> No Car Found! Please add a car...</div> 
+}
+else
+{
+    <div class="form-border">
+        <table class="table table-condensed table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(m=>m.Cars.FirstOrDefault().VIN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Cars.FirstOrDefault().Make)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Cars.FirstOrDefault().Model)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Cars.FirstOrDefault().Style)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.Cars.FirstOrDefault().Color)
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Cars)
+            { 
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m=>item.VIN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Make)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Model)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Style)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Color)
+                    </td>
+                    @if (User.IsInRole(SD.CustomerEndUser))
+                    { 
+                        <td style="width:100%">
+                            <a class="btn btn-primary btn-sm" asp-controller="Services" asp-action="Index" asp-route-carId="@item.Id">
+                                <span class="glyphicon glyphicon-wrench"> &nbsp; Service History</span>
+                            </a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="width:100%">
+                            <a class="btn btn-success btn-sm" asp-controller="Services" asp-action="Index" asp-route-carId="@item.Id">
+                                <span class="glyphicon glyphicon-plus-sign"> &nbsp; New Service</span>
+                            </a>
+                        </td>
+
+                    }
+                    <td>
+                        EDIT|DELETE|DETAILS
+                    </td>
+                </tr>
+            }
+        </table> 
+    </div>
+}
+
