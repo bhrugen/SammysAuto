@@ -7,6 +7,7 @@ using SammysAuto.Data;
 using System.Security.Claims;
 using SammysAuto.ViewModel;
 using SammysAuto.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SammysAuto.Controllers
 {
@@ -64,6 +65,25 @@ namespace SammysAuto.Controllers
             return View(car);
         }
 
+        //Details GET
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var car = await _db.Cars
+                .Include(c => c.ApplicationUser)
+                .SingleOrDefaultAsync(m => m.Id == id);
+
+            if (car == null)
+            {
+                NotFound();
+            }
+
+            return View(car);
+        }
 
         protected override void Dispose(bool disposing)
         {
