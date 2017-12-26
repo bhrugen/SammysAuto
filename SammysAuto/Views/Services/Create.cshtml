@@ -1,0 +1,62 @@
+﻿@model SammysAuto.ViewModel.CarAndServicesViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br />
+@Html.Partial("_CarDetailsInService")
+<hr />
+
+<h4>Service</h4>
+<div class="row form-border">
+    <form asp-action="Create">
+        <input asp-for="carId" hidden />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-sm-5">
+            @* Miles and Price, with Submit Button*@
+            <div class="row">
+                <div class="col-sm-3">
+                    <label asp-for="NewServiceObj.Miles" class="control-label"></label>
+                </div>
+                <div class="col-sm-9" style="padding-bottom:5px;">
+                    <input asp-for="NewServiceObj.Miles"  class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <label asp-for="NewServiceObj.Price" class="control-label"></label>
+                </div>
+                <div class="col-sm-9" style="padding-bottom:5px;">
+                    <input asp-for="NewServiceObj.Price"  class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                </div>
+                <div class="col-sm-9" style="padding-bottom:5px;">
+                    <input type="submit" value="Add Service" class="btn btn-sm btn-primary form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5 col-sm-offset-2">
+            @* Details and ServiceType *@
+            <div class="row">
+                <div class="col-sm-3">
+                    <label asp-for="NewServiceObj.Details" class="control-label"></label>
+                </div>
+                <div class="col-sm-9" style="padding-bottom:5px;">
+                    <input asp-for="NewServiceObj.Details"  class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <label asp-for="NewServiceObj.ServiceTypeId" class="control-label"></label>
+                </div>
+                <div class="col-sm-9" style="padding-bottom:5px;">
+                    <select asp-for="NewServiceObj.ServiceTypeId" asp-items="@(new SelectList(Model.ServiceTypesObj,"Id","Name"))" class="form-control"></select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

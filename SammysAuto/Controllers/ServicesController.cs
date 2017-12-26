@@ -25,9 +25,15 @@ namespace SammysAuto.Controllers
         //GET : Services/Create
         public IActionResult Create(int carId)
         {
+            var car = _db.Cars.FirstOrDefault(c => c.Id == carId);
             var model = new CarAndServicesViewModel
             {
-                CarObj = _db.Cars.FirstOrDefault(c => c.Id == carId),
+                carId=car.Id,
+                Make=car.Make,
+                Model=car.Model,
+                Style=car.Style,
+                VIN=car.VIN,
+                Year=car.Year,
                 ServiceTypesObj = _db.ServiceTypes.ToList(),
                 PastServicesObj = _db.Services.Where(s => s.CarId == carId).OrderByDescending(s => s.DateAdded).Take(5)
             };
@@ -42,17 +48,23 @@ namespace SammysAuto.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.NewServiceObj.CarId = model.CarObj.Id;
+                model.NewServiceObj.CarId = model.carId;
                 model.NewServiceObj.DateAdded = DateTime.Now;
                 _db.Add(model.NewServiceObj);
                 await _db.SaveChangesAsync();
-                return RedirectToAction(nameof(Create), new { carId = model.CarObj.Id });
+                return RedirectToAction(nameof(Create), new { carId = model.carId });
             }
+            var car = _db.Cars.FirstOrDefault(c => c.Id == model.carId);
             var newModel = new CarAndServicesViewModel
             {
-                CarObj = _db.Cars.FirstOrDefault(c => c.Id == model.CarObj.Id),
+                carId = car.Id,
+                Make = car.Make,
+                Model = car.Model,
+                Style = car.Style,
+                VIN = car.VIN,
+                Year = car.Year,
                 ServiceTypesObj = _db.ServiceTypes.ToList(),
-                PastServicesObj = _db.Services.Where(s => s.CarId == model.CarObj.Id).OrderByDescending(s => s.DateAdded).Take(5)
+                PastServicesObj = _db.Services.Where(s => s.CarId == model.carId).OrderByDescending(s => s.DateAdded).Take(5)
             };
             return View(newModel);
         }
