@@ -114,7 +114,7 @@ else
 
                     }
                     <td>
-                        EDIT|DELETE|DETAILS
+                        @Html.Partial("_TableButtonPartial", new IndividualButtonPartial {  CarId=item.Id})
                     </td>
                 </tr>
             }
