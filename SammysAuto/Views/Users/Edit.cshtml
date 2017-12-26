@@ -1,0 +1,106 @@
+﻿@model ApplicationUser
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<br />
+<h2>Edit Customer</h2>
+<hr />
+
+<form asp-action="Edit">
+    <div class="form-border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="FirstName" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="FirstName" class="form-control" />
+                </div>
+            </div>
+
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="LastName" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="LastName" class="form-control" />
+                </div>
+            </div>
+
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="Email" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="Email" class="form-control" />
+                </div>
+            </div>
+
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="PhoneNumber" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="PhoneNumber" class="form-control" />
+                </div>
+            </div>
+
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="Address" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="Address" class="form-control" />
+                </div>
+            </div>
+
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="City" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="City" class="form-control" />
+                </div>
+            </div>
+
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="PostalCode" class="custom-label"></label>
+                </div>
+                <div class="col-sm-4">
+                    <input asp-for="PostalCode" class="form-control" />
+                </div>
+            </div>
+
+            <span asp-validation-for="PostalCode" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Update" class="btn btn-sm btn-primary" />
+            <a asp-action="Index" class="btn btn-sm btn-success">Back to List</a>
+        </div>
+    </div>
+</form>
+
+

@@ -100,7 +100,7 @@ namespace SammysAuto.Controllers
                     userInDb.PostalCode= user.PostalCode;
 
                     await _db.SaveChangesAsync();
-                    return RedirectToAction("Index", "User");
+                    return RedirectToAction(nameof(Index));
                 }
             }
         }
