@@ -253,7 +253,14 @@ namespace SammysAuto.Controllers
                         await _roleManager.CreateAsync(new IdentityRole(SD.AdminEndUser));
                     }
 
-                    await _userManager.AddToRoleAsync(user, SD.AdminEndUser);
+                    if (model.isAdmin)
+                    {
+                        await _userManager.AddToRoleAsync(user, SD.AdminEndUser);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, SD.CustomerEndUser);
+                    }
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

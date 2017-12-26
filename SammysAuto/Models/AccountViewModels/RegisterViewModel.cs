@@ -36,6 +36,6 @@ namespace SammysAuto.Models.AccountViewModels
         public string PostalCode { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
-        //public bool isAdmin { get; set; }
+        public bool isAdmin { get; set; }
     }
 }
