@@ -8,9 +8,11 @@ using System.Security.Claims;
 using SammysAuto.ViewModel;
 using SammysAuto.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SammysAuto.Controllers
 {
+    [Authorize]
     public class CarsController : Controller
     {
 
