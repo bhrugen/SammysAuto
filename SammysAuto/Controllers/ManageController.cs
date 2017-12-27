@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using SammysAuto.Models;
 using SammysAuto.Models.ManageViewModels;
 using SammysAuto.Services;
+using SammysAuto.Data;
 
 namespace SammysAuto.Controllers
 {
@@ -22,6 +23,7 @@ namespace SammysAuto.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _db;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
@@ -32,6 +34,7 @@ namespace SammysAuto.Controllers
           UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
           IEmailSender emailSender,
+          ApplicationDbContext db,
           ILogger<ManageController> logger,
           UrlEncoder urlEncoder)
         {
@@ -39,6 +42,7 @@ namespace SammysAuto.Controllers
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _db = db;
             _urlEncoder = urlEncoder;
         }
 
@@ -60,7 +64,12 @@ namespace SammysAuto.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
-                StatusMessage = StatusMessage
+                StatusMessage = StatusMessage,
+                FirstName = user.FirstName,
+                LastName=user.LastName,
+                Address=user.Address,
+                City=user.City,
+                PostalCode=user.PostalCode
             };
 
             return View(model);
@@ -81,25 +90,15 @@ namespace SammysAuto.Controllers
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var email = user.Email;
-            if (model.Email != email)
-            {
-                var setEmailResult = await _userManager.SetEmailAsync(user, model.Email);
-                if (!setEmailResult.Succeeded)
-                {
-                    throw new ApplicationException($"Unexpected error occurred setting email for user with ID '{user.Id}'.");
-                }
-            }
+            var userInDb = _db.Users.Where(u => u.Email.Equals(model.Email)).FirstOrDefault();
+            userInDb.FirstName = model.FirstName;
+            userInDb.LastName = model.LastName;
+            userInDb.Address = model.Address;
+            userInDb.City = model.City;
+            userInDb.PhoneNumber = model.PhoneNumber;
+            userInDb.PostalCode = model.PostalCode;
 
-            var phoneNumber = user.PhoneNumber;
-            if (model.PhoneNumber != phoneNumber)
-            {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
-                }
-            }
+            await _db.SaveChangesAsync();
 
             StatusMessage = "Your profile has been updated";
             return RedirectToAction(nameof(Index));
