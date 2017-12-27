@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using SammysAuto.Utility
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -30,9 +32,15 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Users" asp-action="Index">Users</a></li>
-                    <li><a asp-area="" asp-controller="Cars" asp-action="Index">About</a></li>
-                    <li><a asp-area="" asp-controller="ServiceTypes" asp-action="Index">Service Types</a></li>
+                    @if (User.IsInRole(SD.AdminEndUser))
+                    {
+                        <li><a asp-area="" asp-controller="Users" asp-action="Index">Users</a></li>
+                    }
+                    <li><a asp-area="" asp-controller="Cars" asp-action="Index">Cars</a></li>
+                    @if (User.IsInRole(SD.AdminEndUser))
+                    {
+                        <li><a asp-area="" asp-controller="ServiceTypes" asp-action="Index">Service Types</a></li>
+                    }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

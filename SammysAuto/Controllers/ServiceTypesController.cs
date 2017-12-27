@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using SammysAuto.Data;
 using SammysAuto.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using SammysAuto.Utility;
 
 namespace SammysAuto.Controllers
 {
+    [Authorize(Roles =SD.AdminEndUser)]
     public class ServiceTypesController : Controller
     {
         private readonly ApplicationDbContext _db;
