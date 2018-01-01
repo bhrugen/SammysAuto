@@ -128,7 +128,20 @@ namespace SammysAuto.Controllers
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var userInDb = await _db.Users.SingleOrDefaultAsync(u => u.Id == id);
-            _db.Remove(userInDb);
+
+            var cars = _db.Cars.Where(x => x.UserId == userInDb.Id);
+
+            List<Car> listCar = cars.ToList();
+
+            foreach (var car in listCar)
+            {
+                var servcies = _db.Services.Where(x => x.CarId == car.Id);
+
+                _db.Services.RemoveRange(servcies);
+            }
+
+            _db.Cars.RemoveRange(cars);
+            _db.Users.Remove(userInDb);
             await _db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
